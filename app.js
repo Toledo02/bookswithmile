@@ -58,9 +58,17 @@ app.post('/admin/salvar', upload.single('imagem'), (req, res) => {
     });
 });
 
-// Rota Home (só para testar se está rodando)
+// Rota Home: Lista todos os livros
 app.get('/', (req, res) => {
-    res.send('<h1>Servidor Rodando!</h1> <a href="/admin">Ir para Cadastro</a>');
+    const sql = "SELECT * FROM livros ORDER BY data_criacao DESC"; // Mais recentes primeiro
+    
+    db.all(sql, [], (err, rows) => {
+        if (err) {
+            return console.error(err.message);
+        }
+        // Renderiza o arquivo index.ejs e envia a lista de livros (rows)
+        res.render('index', { livros: rows });
+    });
 });
 
 // --- INICIALIZAÇÃO ---

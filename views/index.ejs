@@ -1,0 +1,56 @@
+<%- include('partials/header') %>
+
+<div class="container">
+    
+    <div class="p-5 mb-4 bg-light rounded-3 shadow-sm text-center">
+        <h1 class="display-5 fw-bold">Bem-vindo ao Clube!</h1>
+        <p class="col-md-8 fs-4 mx-auto">Resenhas, dicas e devaneios literários.</p>
+        </div>
+
+    <h3 class="mb-4 border-bottom pb-2">Últimas Resenhas</h3>
+    
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        <% if (livros.length === 0) { %>
+            <div class="col-12 text-center text-muted">
+                <p>Nenhuma resenha cadastrada ainda.</p>
+            </div>
+        <% } %>
+
+        <% livros.forEach(function(livro) { %>
+            <div class="col">
+                <div class="card h-100 shadow-sm border-0">
+                    <a href="/livro/<%= livro.id %>">
+                        <% if (livro.imagem) { %>
+                            <img src="<%= livro.imagem %>" class="card-img-top" alt="<%= livro.titulo %>">
+                        <% } else { %>
+                            <img src="https://via.placeholder.com/300x450?text=Sem+Capa" class="card-img-top">
+                        <% } %>
+                    </a>
+                    
+                    <div class="card-body">
+                        <small class="text-muted text-uppercase"><%= livro.autor %></small>
+                        <h5 class="card-title mt-1">
+                            <a href="/livro/<%= livro.id %>" class="text-decoration-none text-dark">
+                                <%= livro.titulo %>
+                            </a>
+                        </h5>
+                        
+                        <div class="mb-2 text-warning">
+                            <% for(let i=0; i<livro.nota; i++) { %>★<% } %>
+                            <% for(let i=livro.nota; i<5; i++) { %>☆<% } %>
+                        </div>
+                        
+                        <p class="card-text text-secondary">
+                            <%= livro.resumo %>
+                        </p>
+                    </div>
+                    <div class="card-footer bg-white border-0">
+                        <a href="/livro/<%= livro.id %>" class="btn btn-outline-dark w-100">Ler Resenha</a>
+                    </div>
+                </div>
+            </div>
+        <% }); %>
+    </div>
+</div>
+
+<%- include('partials/footer') %>
