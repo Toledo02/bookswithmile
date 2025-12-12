@@ -1,0 +1,20 @@
+# Dependências do Node
+node_modules/
+
+# Logs de erro do npm
+npm-debug.log
+
+# Arquivos de sistema operacional (lixo)
+.DS_Store
+Thumbs.db
+
+# Variáveis de ambiente (se usarmos .env no futuro)
+.env
+
+# Banco de dados SQLite
+*.db
+*.sqlite
+
+# Pasta de uploads
+public/uploads/*
+!public/uploads/.gitkeep
