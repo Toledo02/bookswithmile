@@ -1,0 +1,271 @@
+:root {
+    /* Paleta de Cores Literária */
+    --cor-fundo: #fcfbf9;       /* Um creme bem suave, melhor que branco puro */
+    --cor-fundo-header: #eee8de; /* Bege claro para o header */
+    --cor-texto: #2d2d2d;       /* Cinza escuro, cansa menos a vista */
+    --cor-primaria: #84383e;    /* Um vinho elegante para botões e links */
+    --cor-primaria-hover: #6d2c34;
+    --cor-destaque: #e3dcd2;    /* Bege para fundos de destaque */
+    
+    /* Fontes */
+    --fonte-titulo: 'Playfair Display', serif;
+    --fonte-texto: 'Lato', sans-serif;
+}
+
+.header-hero {
+    background-color: var(--cor-fundo-header);
+    padding: 3rem 0; /* Bastante espaço para a logo respirar */
+    border-bottom: 1px solid #dcd3c5;
+    /* Dica: Se quiser uma textura de papel, pode adicionar url de imagem aqui depois */
+}
+
+.navbar-custom {
+    background-color: var(--cor-primaria) !important; /* Fundo Vinho */
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    padding: 0.2rem 1rem;
+}
+
+.navbar-custom .nav-link {
+    color: rgba(255,255,255,0.9) !important;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    font-weight: 700;
+    margin: 0 10px;
+}
+
+.navbar-custom .nav-link:hover {
+    color: #ffd700 !important; /* Dourado ao passar o mouse */
+}
+
+/* Banner de Destaque da Home */
+.hero-banner {
+    background-color: var(--cor-destaque); /* Nosso bege elegante */
+    color: var(--cor-texto);
+    border: 1px solid #dcd3c5;
+}
+
+.hero-banner h1 {
+    color: var(--cor-primaria); /* O título fica vinho */
+}
+
+/* Ajuste do botão de busca no menu vinho */
+.navbar-custom .form-control {
+    border: none;
+    background-color: rgba(255,255,255,0.9);
+}
+
+.navbar-custom .btn-busca {
+    color: white;
+    border: 1px solid rgba(255,255,255,0.5);
+}
+.navbar-custom .btn-busca:hover {
+    background-color: white;
+    color: var(--cor-primaria);
+}
+
+body {
+    background-color: var(--cor-fundo);
+    color: var(--cor-texto);
+    font-family: var(--fonte-texto);
+    line-height: 1.6;
+}
+
+/* --- Títulos --- */
+h1, h2, h3, h4, h5, h6, .navbar-brand {
+    font-family: var(--fonte-titulo);
+    color: #1a1a1a;
+}
+
+/* --- Navbar (Menu) --- */
+
+.navbar-brand {
+    font-size: 1.8rem;
+    color: var(--cor-primaria) !important;
+    font-weight: 700;
+}
+
+.nav-link {
+    color: #555 !important;
+    font-weight: 400;
+    transition: color 0.3s;
+}
+
+.nav-link:hover {
+    color: var(--cor-primaria) !important;
+}
+
+/* --- Cards de Livros (Home) --- */
+.card {
+    border: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background-color: #fff;
+}
+
+.card:hover {
+    transform: translateY(-5px); /* Efeito de "levantar" */
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important;
+}
+
+.card-img-top {
+    border-radius: 4px; /* Cantos levemente arredondados */
+    /* A altura fixa já estava no HTML, mas reforçando: */
+    height: 380px; 
+    object-fit: cover;
+}
+
+.card-title a {
+    color: #1a1a1a;
+    transition: color 0.2s;
+}
+
+.card-title a:hover {
+    color: var(--cor-primaria);
+}
+
+/* --- Página de Detalhes (Leitura) --- */
+.content {
+    font-family: 'Merriweather', serif; /* Fonte específica para texto longo */
+    font-size: 1.15rem;
+    color: #333;
+    line-height: 1.9; /* Espaçamento maior para leitura confortável */
+}
+
+/* --- Botões Customizados --- */
+.btn-primary, .btn-success, .btn-dark {
+    background-color: var(--cor-primaria);
+    border-color: var(--cor-primaria);
+    font-family: var(--fonte-texto);
+    letter-spacing: 0.5px;
+    padding: 10px 20px;
+}
+
+.btn-primary:hover, .btn-success:hover, .btn-dark:hover {
+    background-color: var(--cor-primaria-hover);
+    border-color: var(--cor-primaria-hover);
+}
+
+.btn-outline-primary {
+    color: var(--cor-primaria);
+    border-color: var(--cor-primaria);
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--cor-primaria);
+    color: #fff;
+}
+
+/* --- Botão Amazon Personalizado --- */
+.btn-amazon {
+    background-color: #e1ad01; /* Um tom mostarda/dourado */
+    color: #2d2d2d;               /* Texto branco para ficar mais sóbrio */
+    border: none;
+    font-weight: 700;
+    transition: background 0.3s;
+}
+
+.btn-amazon:hover {
+    background-color: #c59600; /* Mostarda mais escuro no hover */
+    color: #2d2d2d;
+    transform: translateY(-2px); /* Pequeno efeito de elevação */
+}
+
+/* --- Ajuste do Breadcrumb (Caminho de pão) --- */
+.breadcrumb-item a {
+    color: var(--cor-primaria); /* Cor Vinho */
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.breadcrumb-item a:hover {
+    color: var(--cor-primaria-hover); /* Vinho mais escuro ao passar o mouse */
+    text-decoration: underline;
+}
+
+/* --- Ícones do DNA Literário --- */
+.dna-icon {
+    color: var(--cor-primaria); /* Vinho */
+    margin-right: 8px;          /* Espaço entre ícone e texto */
+    vertical-align: -3px;       /* Alinhamento fino com o texto */
+}
+
+/* --- Botões Sociais Redondos --- */
+.btn-social-round {
+    width: 45px;       /* Largura fixa */
+    height: 45px;      /* Altura fixa igual a largura */
+    border-radius: 50%; /* Faz virar um círculo perfeito */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;        /* Remove preenchimento para centralizar o ícone */
+    font-size: 1.2rem; /* Tamanho do ícone */
+    transition: transform 0.2s ease, background-color 0.2s;
+}
+
+.btn-social-round:hover {
+    transform: translateY(-3px); /* Leve pulinho ao passar o mouse */
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+/* Ajuste específico para garantir que o ícone fique bem centralizado */
+.btn-social-round svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* --- Página de Contato --- */
+.contact-info-box {
+    background-color: var(--cor-primaria); /* Vinho */
+    color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(142, 59, 70, 0.2); /* Sombra suave vinho */
+}
+
+.contact-info-box h3 {
+    font-family: var(--fonte-titulo);
+    color: #fff;
+}
+
+.contact-info-box a {
+    color: #e1ad01; /* Dourado/Mostarda para links */
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.contact-info-box a:hover {
+    color: #fff;
+    text-decoration: underline;
+}
+
+/* Ajuste no botão de enviar do formulário */
+.btn-enviar {
+    background-color: #4b1f10; /* Marrom Café */
+    color: #fff;
+    border: none;
+    padding: 12px;
+    font-weight: 700;
+    transition: background 0.3s;
+}
+
+.btn-enviar:hover {
+    background-color: var(--cor-primaria); /* Vira vinho no hover */
+    color: #fff;
+}
+
+/* --- Footer --- */
+.main-footer {
+    background-color: #4b1f10; /* O Marrom Café Escuro solicitado */
+    color: #ffffff;
+    margin-top: 4rem; /* Um bom espaço para separar do conteúdo */
+    border-top: 5px solid var(--cor-destaque); /* Uma borda bege fina no topo para acabamento */
+}
+
+/* Links dentro do footer */
+.main-footer a {
+    transition: color 0.3s ease;
+    font-weight: 300;
+}
+
+.main-footer a:hover {
+    color: var(--cor-destaque) !important; /* Fica bege ao passar o mouse */
+}

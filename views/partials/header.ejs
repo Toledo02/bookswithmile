@@ -4,33 +4,53 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>bookswithmile</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        /* Um toque de estilo para ficar com cara de blog literário */
-        body { font-family: 'Georgia', serif; background-color: #f9f9f9; }
-        .navbar-brand { font-weight: bold; font-size: 1.5rem; letter-spacing: 1px; }
-        .card-img-top { height: 350px; object-fit: cover; } /* Padroniza a altura das capas */
-    </style>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+<header class="header-hero text-center">
+    <div class="container">
+        <a href="/">
+            <img src="/img/logo-grande.png" alt="bookswithmile" class="img-fluid" style="max-height: 280px;">
+        </a>
+    </div>
+</header>
+
+<nav class="navbar navbar-expand-lg navbar-dark sticky-top navbar-custom">
   <div class="container">
-    <a class="navbar-brand" href="/">📚 bookswithmile</a>
+    
+    <a class="navbar-brand d-flex align-items-center" href="/">
+        <img src="/img/logo-pequena.png" alt="Logo" width="55" height="55" class="d-inline-block align-text-top me-2">
+        <span class="d-lg-none" style="font-family: 'Playfair Display'">Menu</span>
+    </a>
+
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
       <span class="navbar-toggler-icon"></span>
     </button>
+    
     <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ms-auto">
+      <ul class="navbar-nav mx-auto align-items-center">
         <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
-        <li class="nav-item"><a class="nav-link" href="/sobre">Sobre</a></li>
+        <li class="nav-item"><a class="nav-link" href="/sobre">Sobre a Mile</a></li>
         <li class="nav-item"><a class="nav-link" href="/contato">Contato</a></li>
-        <li class="nav-item"><a class="btn btn-sm btn-outline-light ms-3" href="/admin/login">Área Admin</a></li>
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/admin/login">Admin</a>
+        </li>
       </ul>
 
       <form class="d-flex" action="/busca" method="GET">
-        <input class="form-control me-2" type="search" name="q" placeholder="Buscar livro ou autor..." aria-label="Search">
-        <button class="btn btn-outline-light" type="submit">Buscar</button>
+        <input class="form-control me-2 form-control-sm" type="search" name="q" placeholder="Buscar..." aria-label="Search">
+        <button class="btn btn-sm btn-busca d-flex align-items-center justify-content-center" type="submit">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+              <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+            </svg>
+        </button>
       </form>
       
     </div>
