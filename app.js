@@ -71,6 +71,30 @@ app.get('/', (req, res) => {
     });
 });
 
+// Rota de Busca
+app.get('/busca', (req, res) => {
+    const query = req.query.q; // Pega o que foi digitado na URL (?q=...)
+    
+    // Se a pessoa buscar vazio, manda de volta pra home
+    if (!query) {
+        return res.redirect('/');
+    }
+
+    // SQL com LIKE para buscar partes do texto (ex: '%Harry%')
+    // Buscamos tanto no Título quanto no Autor
+    const sql = "SELECT * FROM livros WHERE titulo LIKE ? OR autor LIKE ?";
+    const params = [`%${query}%`, `%${query}%`];
+
+    db.all(sql, params, (err, rows) => {
+        if (err) {
+            return console.error(err.message);
+        }
+        // Reutilizamos a view 'index' para mostrar os resultados!
+        // Passamos também o termo buscado para mostrar "Resultados para 'X'"
+        res.render('index', { livros: rows, busca: query });
+    });
+});
+
 // Rota Detalhes: Exibe um livro específico
 app.get('/livro/:id', (req, res) => {
     const id = req.params.id;
