@@ -112,6 +112,11 @@ app.get('/livro/:id', (req, res) => {
     });
 });
 
+// Rota Sobre: Página da Autora
+app.get('/sobre', (req, res) => {
+    res.render('sobre');
+});
+
 // Rota GET: Exibe a página de contato
 app.get('/contato', (req, res) => {
     // Renderiza a página passando 'enviado: false' para não mostrar o alerta de sucesso ainda
