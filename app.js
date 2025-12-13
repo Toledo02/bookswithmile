@@ -3,9 +3,25 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const multer = require('multer');
 const db = require('./db/database');
-
+const session = require('express-session');
 const app = express();
 const PORT = 3000;
+
+// Configuração da Sessão
+app.use(session({
+    secret: 'chave-super-secreta-do-projeto', // Na vida real, isso iria num arquivo .env
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false } // false porque estamos em localhost (http) e não https
+}));
+
+// Middleware de Autenticação
+function protegerRota(req, res, next) {
+    if (req.session.usuarioLogado) {
+        return next(); // Se tiver logado, deixa passar
+    }
+    res.redirect('/login'); // Se não, chuta pro login
+}
 
 // 1. Configuração do View Engine (EJS)
 app.set('view engine', 'ejs');
@@ -33,9 +49,19 @@ const upload = multer({ storage: storage });
 
 // --- ROTAS (Vamos separar depois, mas por enquanto ficam aqui) ---
 
-// Rota GET: Exibe o formulário de cadastro (Admin)
-app.get('/admin', (req, res) => {
-    res.render('admin/cadastro'); // Vamos criar esse arquivo jájá
+// --- ROTAS ADMINISTRATIVAS (CRUD) ---
+
+// DASHBOARD (READ): Lista todos os livros com opções de editar/excluir
+app.get('/admin', protegerRota, (req, res) => {
+    db.all("SELECT * FROM livros ORDER BY data_criacao DESC", [], (err, rows) => {
+        if (err) return res.send("Erro no banco");
+        res.render('admin/dashboard', { livros: rows });
+    });
+});
+
+// CREATE (Formulário)
+app.get('/admin/novo', protegerRota, (req, res) => {
+    res.render('admin/cadastro'); // Aquele arquivo que já criamos antes
 });
 
 // Rota POST: Recebe os dados do formulário e salva no banco
@@ -54,9 +80,79 @@ app.post('/admin/salvar', upload.single('imagem'), (req, res) => {
             return res.send("Erro ao salvar no banco de dados.");
         }
         console.log(`Livro adicionado com ID: ${this.lastID}`);
-        res.redirect('/'); // Volta para a home (ou para o admin)
+        res.redirect('/admin'); 
     });
 });
+
+// DELETE
+app.get('/admin/deletar/:id', protegerRota, (req, res) => {
+    const id = req.params.id;
+    db.run("DELETE FROM livros WHERE id = ?", id, (err) => {
+        if (err) return console.error(err.message);
+        res.redirect('/admin');
+    });
+});
+
+// UPDATE (Formulário de Edição)
+app.get('/admin/editar/:id', protegerRota, (req, res) => {
+    const id = req.params.id;
+    db.get("SELECT * FROM livros WHERE id = ?", id, (err, row) => {
+        if (!row) return res.redirect('/admin');
+        res.render('admin/editar', { livro: row });
+    });
+});
+
+// UPDATE (Salvar Edição)
+app.post('/admin/editar/salvar/:id', protegerRota, upload.single('imagem'), (req, res) => {
+    const id = req.params.id;
+    const { titulo, autor, resumo, resenha, nota, link_compra } = req.body;
+    
+    // Lógica da Imagem: Se o usuário subiu uma nova, usa ela. Se não, precisamos MANTER a antiga.
+    // Como o UPDATE substitui tudo, precisamos fazer um select antes ou lógica SQL dinâmica.
+    // Vamos pelo caminho mais fácil: SQL Dinâmico.
+
+    if (req.file) {
+        // Usuário mandou imagem nova
+        const imagem = '/uploads/' + req.file.filename;
+        const sql = `UPDATE livros SET titulo=?, autor=?, imagem=?, resumo=?, resenha=?, nota=?, link_compra=? WHERE id=?`;
+        db.run(sql, [titulo, autor, imagem, resumo, resenha, nota, link_compra, id], (err) => {
+            res.redirect('/admin');
+        });
+    } else {
+        // Usuário NÃO mandou imagem (mantém a antiga)
+        const sql = `UPDATE livros SET titulo=?, autor=?, resumo=?, resenha=?, nota=?, link_compra=? WHERE id=?`;
+        db.run(sql, [titulo, autor, resumo, resenha, nota, link_compra, id], (err) => {
+            res.redirect('/admin');
+        });
+    }
+});
+
+// Rota GET: Tela de Login
+app.get('/login', (req, res) => {
+    res.render('admin/login', { erro: null });
+});
+
+// Rota POST: Processa o Login
+app.post('/login', (req, res) => {
+    const { usuario, senha } = req.body;
+
+    // Login "Hardcoded" (Simples para o projeto acadêmico)
+    // Usuário: admin | Senha: 123
+    if (usuario === 'admin' && senha === '123') {
+        req.session.usuarioLogado = true;
+        res.redirect('/admin');
+    } else {
+        res.render('admin/login', { erro: 'Usuário ou senha incorretos!' });
+    }
+});
+
+// Rota Logout
+app.get('/logout', (req, res) => {
+    req.session.destroy();
+    res.redirect('/');
+});
+
+
 
 // Rota Home: Lista todos os livros
 app.get('/', (req, res) => {
