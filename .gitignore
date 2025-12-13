@@ -8,7 +8,7 @@ npm-debug.log
 .DS_Store
 Thumbs.db
 
-# Variáveis de ambiente (se usarmos .env no futuro)
+# Variáveis de ambiente
 .env
 
 # Banco de dados SQLite

@@ -1,63 +1,108 @@
 <%- include('partials/header') %>
 
-<div class="container">
+<div class="container mb-5">
     
     <div class="p-5 mb-4 hero-banner rounded-3 shadow-sm text-center">
         <h1 class="display-5 fw-bold">Bem-vindo ao Clube!</h1>
         <p class="col-md-8 fs-4 mx-auto">Resenhas, dicas e devaneios literários.</p>
-        </div>
+    </div>
 
     <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-2">
         <% if (locals.busca) { %>
-            <h3>🔎 Resultados para: "<em><%= busca %></em>"</h3>
+            <h3>Resultados para: "<em><%= busca %></em>"</h3>
             <a href="/" class="btn btn-sm btn-outline-secondary">Limpar Busca</a>
         <% } else { %>
-            <h3>Últimas Resenhas</h3>
+            <h3 style="font-family: var(--fonte-titulo); color: var(--cor-primaria);">Últimas Resenhas</h3>
         <% } %>
     </div>
     
-    <div class="row row-cols-1 row-cols-md-3 g-4">
-        <% if (livros.length === 0) { %>
-            <div class="col-12 text-center text-muted">
-                <p>Nenhuma resenha cadastrada ainda.</p>
+    <% if (livros.length === 0) { %>
+        <div class="text-center text-muted py-5">
+            <p class="fs-5">Nenhuma resenha encontrada.</p>
+        </div>
+    <% } else { %>
+
+        <div class="swiper mySwiper">
+            <div class="swiper-wrapper py-4"> <% livros.forEach(function(livro) { %>
+                    <div class="swiper-slide">
+                        <div class="card h-100 shadow-sm border-0" style="transition: transform 0.3s;">
+                            
+                            <a href="/livro/<%= livro.id %>">
+                                <% if (livro.imagem) { %>
+                                    <img src="<%= livro.imagem %>" class="card-img-top" alt="<%= livro.titulo %>" style="height: 380px; object-fit: cover;">
+                                <% } else { %>
+                                    <img src="https://via.placeholder.com/300x450?text=Sem+Capa" class="card-img-top" style="height: 380px; object-fit: cover;">
+                                <% } %>
+                            </a>
+                            
+                            <div class="card-body d-flex flex-column">
+                                <small class="text-muted text-uppercase" style="font-size: 0.8rem;"><%= livro.autor %></small>
+                                
+                                <h5 class="card-title mt-2 fw-bold text-truncate">
+                                    <a href="/livro/<%= livro.id %>" class="text-decoration-none" style="color: var(--cor-texto);">
+                                        <%= livro.titulo %>
+                                    </a>
+                                </h5>
+                                
+                                <div class="mb-2 text-warning">
+                                    <% for(let i=0; i<livro.nota; i++) { %>★<% } %>
+                                    <% for(let i=livro.nota; i<5; i++) { %>☆<% } %>
+                                </div>
+                                
+                                <p class="card-text text-secondary small flex-grow-1" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">
+                                    <%= livro.resumo %>
+                                </p>
+
+                                <a href="/livro/<%= livro.id %>" class="btn btn-outline-dark w-100 mt-3">Ler Resenha</a>
+                            </div>
+                        </div>
+                    </div>
+                <% }); %>
+
             </div>
+            
+            <div class="swiper-button-next" style="color: var(--cor-primaria);"></div>
+            <div class="swiper-button-prev" style="color: var(--cor-primaria);"></div>
+            <div class="swiper-pagination"></div>
+        </div>
         <% } %>
 
-        <% livros.forEach(function(livro) { %>
-            <div class="col">
-                <div class="card h-100 shadow-sm border-0">
-                    <a href="/livro/<%= livro.id %>">
-                        <% if (livro.imagem) { %>
-                            <img src="<%= livro.imagem %>" class="card-img-top" alt="<%= livro.titulo %>">
-                        <% } else { %>
-                            <img src="https://via.placeholder.com/300x450?text=Sem+Capa" class="card-img-top">
-                        <% } %>
-                    </a>
-                    
-                    <div class="card-body">
-                        <small class="text-muted text-uppercase"><%= livro.autor %></small>
-                        <h5 class="card-title mt-1">
-                            <a href="/livro/<%= livro.id %>" class="text-decoration-none text-dark">
-                                <%= livro.titulo %>
-                            </a>
-                        </h5>
-                        
-                        <div class="mb-2 text-warning">
-                            <% for(let i=0; i<livro.nota; i++) { %>★<% } %>
-                            <% for(let i=livro.nota; i<5; i++) { %>☆<% } %>
-                        </div>
-                        
-                        <p class="card-text text-secondary">
-                            <%= livro.resumo %>
-                        </p>
-                    </div>
-                    <div class="card-footer bg-white border-0">
-                        <a href="/livro/<%= livro.id %>" class="btn btn-outline-dark w-100">Ler Resenha</a>
-                    </div>
-                </div>
-            </div>
-        <% }); %>
-    </div>
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Inicializa apenas se existir o elemento .mySwiper na tela
+        if (document.querySelector(".mySwiper")) {
+            var swiper = new Swiper(".mySwiper", {
+                slidesPerView: 1,      // Celular: 1 item
+                spaceBetween: 20,
+                loop: false,           // Deixei false para não duplicar itens se tiver poucos livros
+                grabCursor: true,
+                autoplay: {
+                    delay: 4000,
+                    disableOnInteraction: false,
+                },
+                pagination: {
+                    el: ".swiper-pagination",
+                    clickable: true,
+                },
+                navigation: {
+                    nextEl: ".swiper-button-next",
+                    prevEl: ".swiper-button-prev",
+                },
+                breakpoints: {
+                    640: {
+                        slidesPerView: 2, // Tablet pequeno: 2 itens
+                        spaceBetween: 20,
+                    },
+                    1024: {
+                        slidesPerView: 3, // PC: 3 itens (Igual Resenhando Sonhos)
+                        spaceBetween: 30,
+                    },
+                },
+            });
+        }
+    });
+</script>
 
 <%- include('partials/footer') %>

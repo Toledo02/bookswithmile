@@ -30,15 +30,24 @@ router.get('/login', (req, res) => {
     res.render('admin/login', { erro: null });
 });
 
+
+// Rota POST LOGIN
 router.post('/login', (req, res) => {
     const { usuario, senha } = req.body;
-    if (usuario === 'admin' && senha === '123') {
+    
+    // Agora pegamos do arquivo .env
+    const usuarioCorreto = process.env.ADMIN_USER;
+    const senhaCorreta = process.env.ADMIN_PASS;
+
+    if (usuario === usuarioCorreto && senha === senhaCorreta) {
         req.session.usuarioLogado = true;
         res.redirect('/admin');
     } else {
         res.render('admin/login', { erro: 'Dados incorretos' });
     }
 });
+
+// ... resto do código ...
 
 router.get('/logout', (req, res) => {
     req.session.destroy();

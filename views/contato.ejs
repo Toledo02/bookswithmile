@@ -1,10 +1,10 @@
 <%- include('partials/header') %>
 
 <div class="container mt-5 mb-5">
-    <div class="row justify-content-center">
+    <div class="row justify-content-center align-items-stretch">
         
         <div class="col-md-4 mb-4">
-            <div class="p-4 h-100 contact-info-box">
+            <div class="p-4 h-100 contact-info-box d-flex flex-column">
                 <h3 class="mb-4">Fale Comigo</h3>
                 <p style="opacity: 0.9;">Tem alguma sugestão de livro? Quer fazer uma parceria ou apenas trocar uma ideia sobre literatura?</p>
                 
@@ -25,52 +25,35 @@
                     <strong>Instagram:</strong><br>
                     <a href="https://instagram.com/bookswithmile" target="_blank">@bookswithmile</a>
                 </div>
-
-                <div class="mt-4">
-                    <small style="opacity: 0.7;">Respondo geralmente em até 48h.</small>
-                </div>
             </div>
         </div>
 
         <div class="col-md-6">
-            <h2 class="mb-3">Envie uma mensagem</h2>
+            <div class="h-100 d-flex flex-column">
+                <h2 class="mb-3">Envie uma mensagem</h2>
+                <p class="text-muted mb-4">Escreva sua mensagem abaixo e clique no botão para enviar direto na minha DM do Instagram.</p>
 
-            <% if (enviado) { %>
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <strong>Sucesso!</strong> Sua mensagem foi recebida pelo sistema.
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            <% } %>
+                <form onsubmit="return false;" class="card p-4 shadow-sm border-0 h-100 d-flex flex-column">
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Seu Nome</label>
+                        <input type="text" id="nome" class="form-control" required placeholder="Ex: Gustavo">
+                    </div>
 
-            <form action="/contato/enviar" method="POST" id="formContato" class="card p-4 shadow-sm border-0">
-                <div class="mb-3">
-                    <label class="form-label">Seu Nome</label>
-                    <input type="text" name="nome" id="nome" class="form-control" required placeholder="Ex: Gustavo">
-                </div>
+                    <div class="mb-4 flex-grow-1">
+                        <label class="form-label fw-bold">Sua Mensagem</label>
+                        <textarea id="mensagem" class="form-control h-100" style="min-height: 150px;" required placeholder="Olá Mile! Queria falar sobre..."></textarea>
+                    </div>
 
-                <div class="mb-3">
-                    <label class="form-label">Seu E-mail</label>
-                    <input type="email" name="email" class="form-control" required placeholder="nome@exemplo.com">
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label">Mensagem</label>
-                    <textarea name="mensagem" id="mensagem" class="form-control" rows="5" required placeholder="Escreva aqui..."></textarea>
-                </div>
-
-                <div class="d-grid gap-2">
-                    <button type="submit" class="btn btn-enviar">
-                        Enviar pelo Site
-                    </button>
-
-                    <button type="button" onclick="enviarZap()" class="btn btn-success d-flex align-items-center justify-content-center gap-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-whatsapp" viewBox="0 0 16 16">
-                          <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592z"/>
-                        </svg>
-                        Enviar direto no WhatsApp
-                    </button>
-                </div>
-            </form>
+                    <div class="d-grid mt-auto">
+                        <button type="button" onclick="enviarInsta()" class="btn btn-instagram-action btn-lg d-flex align-items-center justify-content-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-instagram" viewBox="0 0 16 16">
+                              <path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 8 0zm0 1.443c2.13 0 2.404.01 3.257.047.792.036 1.224.17 1.51.28.38.147.656.326.933.602.277.277.456.553.603.933.11.285.244.718.28 1.51.037.853.046 1.127.046 3.257s-.009 2.404-.046 3.257c-.036.792-.17 1.224-.28 1.51a2.516 2.516 0 0 1-.603.933c-.277.277-.553.456-.933.603-.285.11-.718.244-1.51.28-.853.037-1.127.046-3.257.046s-2.404-.009-3.257-.046c-.792-.036-1.224-.17-1.51-.28a2.516 2.516 0 0 1-.933-.603 2.516 2.516 0 0 1-.603-.933c-.11-.285-.244-.718-.28-1.51-.037-.853-.046-1.127-.046-3.257s.009-2.404.046-3.257c.036-.792.17-1.224.28-1.51.147-.38.326-.656.602-.933.277-.277.553-.456.933-.603.285-.11.718-.244 1.51-.28.853-.037 1.127-.046 3.257-.046zM8 3.892A4.108 4.108 0 1 0 8 12.108 4.108 4.108 0 0 0 8 3.892zm0 1.443a2.664 2.664 0 1 1 0 5.328 2.664 2.664 0 0 1 0-5.328zm4.358-2.442a.96.96 0 1 1-1.92 0 .96.96 0 0 1 1.92 0z"/>
+                            </svg>
+                            Enviar no Instagram
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>
@@ -78,17 +61,30 @@
 <%- include('partials/footer') %>
 
 <script>
-    function enviarZap() {
-        // 1. Pega os dados do formulário
+    function enviarInsta() {
         let nome = document.getElementById("nome").value;
         let msg = document.getElementById("mensagem").value;
         
-        // 2. Cria o texto da mensagem
-        // %0a é o código para pular linha na URL
-        let texto = `Olá! Meu nome é *${nome}*.%0a%0aVi seu site e gostaria de falar:%0a${msg}`;
-        
-        // 3. Abre o WhatsApp com a mensagem pronta
-        // Substitua o número abaixo pelo da Mile (com 55 e DDD)
-        window.open(`https://wa.me/5541999999999?text=${texto}`, '_blank');
+        if(!nome || !msg) {
+            alert("Por favor, preencha seu Nome e a Mensagem.");
+            return;
+        }
+
+        // Monta o texto final
+        let textoFinal = `Olá! Meu nome é ${nome}. ${msg}`;
+
+        // 1. Copia o texto
+        navigator.clipboard.writeText(textoFinal).then(function() {
+            // 2. Aviso amigável (já que não dá para colar automático)
+            alert("Texto copiado! Agora é só colar na DM!");
+            // 3. Abre a URL especial do Direct (ig.me)
+            // Se o usuário estiver logado, cai direto na conversa
+            window.open("https://ig.me/m/bookswithmile", "_blank");
+            
+        }, function(err) {
+            // Fallback se a cópia falhar
+            alert("Erro ao copiar. Vamos abrir o Direct mesmo assim!");
+            window.open("https://ig.me/m/bookswithmile", "_blank");
+        });
     }
 </script>

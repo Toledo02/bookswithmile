@@ -218,7 +218,7 @@ h1, h2, h3, h4, h5, h6, .navbar-brand {
     background-color: var(--cor-primaria); /* Vinho */
     color: #fff;
     border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(142, 59, 70, 0.2); /* Sombra suave vinho */
+    box-shadow: 0 4px 15px rgba(142, 59, 70, 0.2);
 }
 
 .contact-info-box h3 {
@@ -227,7 +227,7 @@ h1, h2, h3, h4, h5, h6, .navbar-brand {
 }
 
 .contact-info-box a {
-    color: #e1ad01; /* Dourado/Mostarda para links */
+    color: #e1ad01; /* Dourado para links */
     text-decoration: none;
     font-weight: bold;
 }
@@ -237,19 +237,42 @@ h1, h2, h3, h4, h5, h6, .navbar-brand {
     text-decoration: underline;
 }
 
-/* Ajuste no botão de enviar do formulário */
+/* Botão Padrão de Enviar (Marrom) */
 .btn-enviar {
-    background-color: #4b1f10; /* Marrom Café */
+    background-color: #4b1f10;
     color: #fff;
     border: none;
     padding: 12px;
     font-weight: 700;
-    transition: background 0.3s;
+}
+.btn-enviar:hover {
+    background-color: var(--cor-primaria);
+    color: #fff;
 }
 
-.btn-enviar:hover {
-    background-color: var(--cor-primaria); /* Vira vinho no hover */
-    color: #fff;
+/* Botão Instagram (Degradê) */
+.btn-instagram-action {
+    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    color: white;
+    border: none;
+    padding: 12px;
+    font-weight: 700;
+    transition: transform 0.2s;
+}
+
+.btn-instagram-action:hover {
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(220, 39, 67, 0.3);
+}
+
+/* --- Ajustes do Swiper --- */
+.swiper-pagination-bullet-active {
+    background-color: var(--cor-primaria) !important;
+}
+
+.swiper-slide {
+    height: auto; /* Garante que todos os cards tenham altura igual */
 }
 
 /* --- Footer --- */
