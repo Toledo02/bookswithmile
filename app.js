@@ -112,6 +112,27 @@ app.get('/livro/:id', (req, res) => {
     });
 });
 
+// Rota GET: Exibe a página de contato
+app.get('/contato', (req, res) => {
+    // Renderiza a página passando 'enviado: false' para não mostrar o alerta de sucesso ainda
+    res.render('contato', { enviado: false });
+});
+
+// Rota POST: Recebe a mensagem do formulário
+app.post('/contato/enviar', (req, res) => {
+    // Aqui capturamos os dados
+    const { nome, email, mensagem } = req.body;
+    
+    // SIMULAÇÃO: Apenas mostramos no terminal do VS Code
+    console.log("--- NOVA MENSAGEM RECEBIDA ---");
+    console.log(`De: ${nome} (${email})`);
+    console.log(`Mensagem: ${mensagem}`);
+    console.log("------------------------------");
+
+    // Renderiza a mesma página, mas agora com 'enviado: true' para mostrar o alerta verde
+    res.render('contato', { enviado: true });
+});
+
 // --- INICIALIZAÇÃO ---
 app.listen(PORT, () => {
     console.log(`Servidor rodando em http://localhost:${PORT}`);
