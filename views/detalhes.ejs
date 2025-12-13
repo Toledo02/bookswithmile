@@ -1,0 +1,63 @@
+<%- include('partials/header') %>
+
+<div class="container mt-5 mb-5">
+    <div class="row">
+        
+        <div class="col-md-4 text-center mb-4">
+            <div class="card border-0 shadow-sm p-2">
+                <% if (livro.imagem) { %>
+                    <img src="<%= livro.imagem %>" class="img-fluid rounded" alt="Capa do livro">
+                <% } else { %>
+                    <img src="https://via.placeholder.com/300x450?text=Sem+Capa" class="img-fluid rounded">
+                <% } %>
+            </div>
+
+            <div class="d-grid gap-2 mt-4">
+                <% if (livro.link_compra) { %>
+                    <a href="<%= livro.link_compra %>" target="_blank" class="btn btn-warning btn-lg fw-bold">
+                        🛒 Comprar na Amazon
+                    </a>
+                <% } %>
+                
+                <a href="https://instagram.com/SEU_USER" target="_blank" class="btn btn-outline-danger">
+                    📸 Ver no Instagram
+                </a>
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="/">Home</a></li>
+                  <li class="breadcrumb-item active" aria-current="page"><%= livro.titulo %></li>
+                </ol>
+            </nav>
+
+            <h1 class="display-5 fw-bold"><%= livro.titulo %></h1>
+            <h4 class="text-muted mb-3">por <%= livro.autor %></h4>
+
+            <div class="mb-4 text-warning fs-4">
+                <% for(let i=0; i<livro.nota; i++) { %>★<% } %>
+                <% for(let i=livro.nota; i<5; i++) { %>☆<% } %>
+                <span class="text-dark fs-6 ms-2">(Nota: <%= livro.nota %>/5)</span>
+            </div>
+
+            <hr>
+
+            <div class="content mt-4" style="font-size: 1.1rem; line-height: 1.8; white-space: pre-line; text-align: justify;">
+                <%= livro.resenha %>
+            </div>
+
+            <hr class="mt-5">
+            
+            <div class="bg-light p-4 rounded mt-4">
+                <h5>Gostou da resenha?</h5>
+                <p>Tem alguma dúvida ou quer recomendar um livro parecido? Mande uma mensagem!</p>
+                <a href="/contato" class="btn btn-dark btn-sm">Entre em Contato</a>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<%- include('partials/footer') %>

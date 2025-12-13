@@ -71,6 +71,23 @@ app.get('/', (req, res) => {
     });
 });
 
+// Rota Detalhes: Exibe um livro específico
+app.get('/livro/:id', (req, res) => {
+    const id = req.params.id;
+    const sql = "SELECT * FROM livros WHERE id = ?";
+
+    db.get(sql, [id], (err, row) => {
+        if (err) {
+            return console.error(err.message);
+        }
+        if (!row) {
+            return res.status(404).send("Livro não encontrado!");
+        }
+        // Renderiza a página detalhes.ejs passando os dados do livro encontrado
+        res.render('detalhes', { livro: row });
+    });
+});
+
 // --- INICIALIZAÇÃO ---
 app.listen(PORT, () => {
     console.log(`Servidor rodando em http://localhost:${PORT}`);
