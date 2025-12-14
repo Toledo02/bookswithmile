@@ -1,11 +1,13 @@
 <%- include('partials/header') %>
 
-<div class="container mb-5">
-    
-    <div class="p-5 mb-4 hero-banner rounded-3 shadow-sm text-center">
+<div class="hero-banner p-5 mb-5 shadow-sm text-center" style="width: 100%;">
+    <div class="container">
         <h1 class="display-5 fw-bold">Bem-vindo ao Clube!</h1>
         <p class="col-md-8 fs-4 mx-auto">Resenhas, dicas e devaneios literários.</p>
     </div>
+</div>
+
+<div class="container mb-5">
 
     <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-2">
         <% if (locals.busca) { %>

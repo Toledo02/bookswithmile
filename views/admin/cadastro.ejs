@@ -2,6 +2,7 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin - Cadastrar Livro</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
@@ -58,7 +59,16 @@
                     <input type="url" name="link_instagram" class="form-control" placeholder="https://instagram.com/p/...">
                 </div>
 
-                <button type="submit" class="btn btn-success">Salvar Resenha</button>
+                <div class="d-flex justify-content-between align-items-center mt-4">
+    
+                    <a href="/admin" class="btn btn-secondary">Cancelar</a>
+                    
+                    <button type="submit" class="btn btn-primary" style="background-color: var(--cor-primaria); border-color: var(--cor-primaria);">
+                        Salvar Resenha
+                    </button>
+                    
+                </div>
+                
             </form>
         </div>
     </div>

@@ -275,6 +275,73 @@ h1, h2, h3, h4, h5, h6, .navbar-brand {
     height: auto; /* Garante que todos os cards tenham altura igual */
 }
 
+/* =========================================
+   RESPONSIVIDADE DO PAINEL ADMIN
+   ========================================= */
+
+@media screen and (max-width: 768px) {
+    
+    /* Força o cabeçalho a sumir */
+    .admin-table thead {
+        display: none !important;
+    }
+
+    /* Força a tabela e o corpo a ocuparem 100% */
+    .admin-table, .admin-table tbody {
+        display: block !important;
+        width: 100% !important;
+    }
+
+    /* Transforma as linhas (<tr>) em CARDS */
+    .admin-table tr {
+        display: block !important; /* O !important vence o Bootstrap */
+        margin-bottom: 1.5rem;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 0.5rem;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        padding: 1rem;
+    }
+
+    /* Transforma as células (<td>) em linhas flexíveis */
+    .admin-table td {
+        display: flex !important; /* Garante o flexbox */
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.75rem 0;
+        border-bottom: 1px solid #eee;
+        text-align: right;
+        font-size: 0.95rem; /* Garante que o texto fique legível */
+    }
+
+    .admin-table td:last-child {
+        border-bottom: 0;
+    }
+
+    /* O Label (Título da coluna a esquerda) */
+    .admin-table td::before {
+        content: attr(data-label);
+        font-weight: bold;
+        color: var(--cor-primaria);
+        text-transform: uppercase;
+        font-size: 0.8rem;
+        margin-right: 1rem;
+        text-align: left;
+    }
+
+    /* Ajuste dos botões */
+    .admin-table td[data-label="Ações"] {
+        justify-content: flex-end; /* Botões à direita */
+        padding-top: 1rem;
+        margin-top: 0.5rem;
+        border-top: 1px solid #eee; /* Separação visual para os botões */
+    }
+    
+    .admin-table td[data-label="Ações"]::before {
+        display: none;
+    }
+}
+
 /* --- Footer --- */
 .main-footer {
     background-color: #4b1f10; /* O Marrom Café Escuro solicitado */
