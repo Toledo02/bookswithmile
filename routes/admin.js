@@ -69,11 +69,15 @@ router.get('/novo', protegerRota, (req, res) => {
 });
 
 router.post('/salvar', protegerRota, upload.single('imagem'), (req, res) => {
-    const { titulo, autor, resumo, resenha, nota, link_compra } = req.body;
-    const imagem = req.file ? '/uploads/' + req.file.filename : null;
-    const sql = `INSERT INTO livros (titulo, autor, imagem, resumo, resenha, nota, link_compra) VALUES (?,?,?,?,?,?,?)`;
+
+    const { titulo, autor, resumo, resenha, nota, link_compra, link_instagram } = req.body;
     
-    db.run(sql, [titulo, autor, imagem, resumo, resenha, nota, link_compra], (err) => {
+    const imagem = req.file ? '/uploads/' + req.file.filename : null;
+
+    const sql = `INSERT INTO livros (titulo, autor, imagem, resumo, resenha, nota, link_compra, link_instagram) VALUES (?,?,?,?,?,?,?,?)`;
+    
+    db.run(sql, [titulo, autor, imagem, resumo, resenha, nota, link_compra, link_instagram], (err) => {
+        if (err) console.log(err);
         res.redirect('/admin');
     });
 });
@@ -89,16 +93,17 @@ router.get('/editar/:id', protegerRota, (req, res) => {
 // Editar (Salvar)
 router.post('/editar/salvar/:id', protegerRota, upload.single('imagem'), (req, res) => {
     const id = req.params.id;
-    const { titulo, autor, resumo, resenha, nota, link_compra } = req.body;
+    const { titulo, autor, resumo, resenha, nota, link_compra, link_instagram } = req.body;
 
     if (req.file) {
-        // Se subiu imagem nova, idealmente deletamos a antiga aqui também, mas vamos simplificar
         const imagem = '/uploads/' + req.file.filename;
-        const sql = `UPDATE livros SET titulo=?, autor=?, imagem=?, resumo=?, resenha=?, nota=?, link_compra=? WHERE id=?`;
-        db.run(sql, [titulo, autor, imagem, resumo, resenha, nota, link_compra, id], () => res.redirect('/admin'));
+
+        const sql = `UPDATE livros SET titulo=?, autor=?, imagem=?, resumo=?, resenha=?, nota=?, link_compra=?, link_instagram=? WHERE id=?`;
+        db.run(sql, [titulo, autor, imagem, resumo, resenha, nota, link_compra, link_instagram, id], () => res.redirect('/admin'));
     } else {
-        const sql = `UPDATE livros SET titulo=?, autor=?, resumo=?, resenha=?, nota=?, link_compra=? WHERE id=?`;
-        db.run(sql, [titulo, autor, resumo, resenha, nota, link_compra, id], () => res.redirect('/admin'));
+
+        const sql = `UPDATE livros SET titulo=?, autor=?, resumo=?, resenha=?, nota=?, link_compra=?, link_instagram=? WHERE id=?`;
+        db.run(sql, [titulo, autor, resumo, resenha, nota, link_compra, link_instagram, id], () => res.redirect('/admin'));
     }
 });
 
